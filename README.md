@@ -56,17 +56,122 @@ sensor:
 2. Add automation:
 ```yaml
 automation:
-  - alias: "Set fan speed"
-    trigger:
-      platform: numeric_state
+- id: Set-fan-speed-off
+  alias: Set-fan-speed-off
+  description: 'Turn off fan on start'
+  trigger:
+    - platform: homeassistant
+      event: start
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 0
+  mode: single
+- id: Set-fan-speed-on-0
+  alias: CPU fan high speed 0
+  description: Turn up fan speed when CPU is under 35 degrees
+  trigger:
+    - platform: numeric_state
       entity_id: sensor.cpu_temp
-      above: 50.0
-      for:
-        minutes: 1
-    action:
-      - service: argon40.set_fan_speed
-        data:
-          speed: 40
+      below: '35'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 0
+  mode: single
+- id: Set-fan-speed-on-10
+  alias: CPU fan high speed 10
+  description: Turn up fan speed when CPU is over 35 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '35'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 10
+  mode: single
+- id: Set-fan-speed-on-20
+  alias: CPU fan high speed 20
+  description: Turn up fan speed when CPU is over 45 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '45'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 20
+  mode: single
+- id: Set-fan-speed-on-30
+  alias: CPU fan high speed 30
+  description: Turn up fan speed when CPU is over 50 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '50'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 30
+  mode: single
+- id: Set-fan-speed-on-40
+  alias: CPU fan high speed 40
+  description: Turn up fan speed when CPU is over 55 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '55'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 40
+  mode: single
+- id: Set-fan-speed-on-50
+  alias: CPU fan high speed 50
+  description: Turn up fan speed when CPU is over 60 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '60'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 50
+  mode: single
+- id: Set-fan-speed-on-75
+  alias: CPU fan high speed 75
+  description: Turn up fan speed when CPU is over 65 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '65'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 75
+  mode: single
+- id: Set-fan-speed-on-100
+  alias: CPU fan high speed 100
+  description: Turn up fan speed to max when CPU is over 60 degrees
+  trigger:
+    - platform: numeric_state
+      entity_id: sensor.cpu_temp
+      above: '70'
+  condition: []
+  action:
+    - service: argon40.set_fan_speed
+      data:
+        speed: 100
+  mode: single
 ```
 
 #### Bonus - button double-tap detection
